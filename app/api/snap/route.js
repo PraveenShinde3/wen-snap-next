@@ -44,7 +44,7 @@ export async function POST(request) {
 let chrome = {};
 let puppeteer;
 
-if (process.env.AWS_LAMBDA_FUNCTION) {
+if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
   chrome = require("chrome-aws-lambda");
   puppeteer = require("puppeteer-core");
 } else {
@@ -54,7 +54,7 @@ if (process.env.AWS_LAMBDA_FUNCTION) {
 async function takeScreenshot(url) {
   let options = {};
 
-  if (process.env.AWS_LAMBDA_FUNCTION) {
+  if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
     options = {
       args: [...chrome.args, "--hide-scrollbars", "--disable-web-security"],
       defaultViewport: chrome.defaultViewport,
