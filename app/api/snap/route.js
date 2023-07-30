@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 
-const puppeteer = require("puppeteer");
 require("dotenv").config();
 const cloudinary = require("cloudinary").v2;
 cloudinary.config({
@@ -42,9 +41,30 @@ export async function POST(request) {
   });
 }
 
+let chrome = {};
+let puppeteer;
+
+if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
+  chrome = require("chrome-aws-lambda");
+  puppeteer = require("puppeteer-core");
+} else {
+  puppeteer = require("puppeteer");
+}
+
 async function takeScreenshot(url) {
+  let options = {};
+
+  if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
+    options = {
+      args: [...chrome.args, "--hide-scrollbars", "--disable-web-security"],
+      defaultViewport: chrome.defaultViewport,
+      executablePath: await chrome.executablePath,
+      headless: true,
+      ignoreHTTPSErrors: true,
+    };
+  }
   // Create a browser instance
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch(options);
 
   // Create a new page
   const page = await browser.newPage();
