@@ -1,4 +1,4 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const nextConfig = { externals: ["aws-sdk", "chrome-aws-lambda"] };
 
-module.exports = nextConfig
+module.exports = nextConfig;
