@@ -52,7 +52,7 @@ COPY . .
 RUN npm run build
 
 # Use a lightweight Node.js image for production
-FROM node:14-slim
+FROM node:18-slim
 
 # Set the working directory
 WORKDIR /app
