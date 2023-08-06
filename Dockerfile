@@ -34,7 +34,7 @@
 
 
 # Use an official Node.js runtime as the base image
-FROM node:14 AS build
+FROM node:18-alpine AS build
 
 # Set the working directory
 WORKDIR /app
