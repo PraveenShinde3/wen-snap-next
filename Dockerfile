@@ -1,3 +1,5 @@
+
+
 FROM ghcr.io/puppeteer/puppeteer:20.9.0
 
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
@@ -10,6 +12,5 @@ COPY package*.json ./
 RUN npm ci
 
 COPY . .
-
-RUN next build
-CMD ["next", "start"]
+ 
+CMD ["npm","run", "start"]
